@@ -28,5 +28,37 @@ namespace SweetTreats.Controllers
     {
       return View();
     }
+
+    [HttpPost]
+    public async Task<ActionResult> Register(RegisterViewModel model)
+    {
+      if(model.Password != model.ConfirmPassword)
+      {
+        ViewBag.Error = "Confirm that your passwords match";
+        return View();
+      }
+      else
+      {
+        try
+        {
+          var user = new ApplicationUser { UserName = model.Email };
+          IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+          if(result.Succeeded)
+          {
+            return RedirectToAction("Index");
+          }
+          else
+          {
+            ViewBag.Error = result;
+            return View();
+          }
+        }
+        catch(Exception result)
+        {
+          ViewBag.Error = result.Message;
+          return View();
+        }  
+      }  
+    }
   }
 }
