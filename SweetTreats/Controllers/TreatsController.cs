@@ -41,5 +41,6 @@ namespace SweetTreats.Controllers
       _db.Treats.Add(treat);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = treat.TreatId });
+    }
   }
 }
