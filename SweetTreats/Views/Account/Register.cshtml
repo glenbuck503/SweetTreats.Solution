@@ -7,6 +7,14 @@
 @model RegisterViewModel
 
 <h2>Register a new Sweet Treats user!</h2>
+<hr/>
+
+@if(ViewBag.Error != null)
+{
+  <h3>@ViewBag.Error, Please try again.</h3>
+}
+
+
 <hr />
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
