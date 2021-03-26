@@ -47,6 +47,14 @@ namespace Patisserie.Controllers
       return RedirectToAction("Details", new { id = flavor.FlavorId });
     }
 
+    public ActionResult Details(int id)
+    {
+      var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.IsCurrentUser = userId != null? userId == thisFlavor.User.Id : false;
+      return View(thisFlavor);
+    }
+
   }
 }
     
