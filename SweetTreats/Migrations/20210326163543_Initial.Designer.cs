@@ -9,7 +9,7 @@ using SweetTreats.Models;
 namespace SweetTreats.Migrations
 {
     [DbContext(typeof(SweetTreatsContext))]
-    [Migration("20210326163318_Initial")]
+    [Migration("20210326163543_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
