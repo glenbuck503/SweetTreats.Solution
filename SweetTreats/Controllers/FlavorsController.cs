@@ -29,6 +29,24 @@ namespace Patisserie.Controllers
       var userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(userFlavors);
     }
+
+    [Authorize]
+     public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Create(Flavor flavor)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = flavor.FlavorId });
+    }
+
   }
 }
     
