@@ -9,19 +9,22 @@ using System.Threading.Tasks;
 
 namespace SweetTreats.Controllers
 {
-  public class TreatsController : Controller
+  public class TreatsController : Controller 
   {
-    private readonly SweetTreatsContext _db; 
-
-    public TreatsController(SweetTreatsContext db)
-    { 
+    private readonly SweetTreatsContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
+    public TreatsController(UserManager<ApplicationUser> userManager, SweetTreatsContext db)
+    {
+      _userManager = userManager;
       _db = db;
     }
-
-    public ActionResult Index()
+    [Authorize]
+    public async Task<ActionResult> Index()
     {
-      List<Treat> model = _db.Treats.ToList();
-      return View(model);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userTreats);
     }
 
     public ActionResult Create()
@@ -29,12 +32,14 @@ namespace SweetTreats.Controllers
       return View();
     }
 
-    [HttpPost]
-    public ActionResult Create(Treat treat)
+   [HttpPost]
+    public async Task<ActionResult> Create(Treat treat)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      treat.User = currentUser;
       _db.Treats.Add(treat);
       _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
+      return RedirectToAction("Details", new { id = treat.TreatId });
   }
 }
