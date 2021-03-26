@@ -76,6 +76,38 @@ namespace SweetTreats.Controllers
       return RedirectToAction("Details", new { id = treat.TreatId});
     }
 
+    [Authorize]
+    public async Task<ActionResult> AddFlavor(int id)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var thisTreat = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).FirstOrDefault(treats => treats.TreatId == id);
+      if(thisTreat == null)
+      {
+        return RedirectToAction("Details", new { id = id});
+      }
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      return View(thisTreat);
+    }
+
+    [HttpPost]
+    public ActionResult AddFlavor(Treat treat, int FlavorId)
+    {
+      if(FlavorId != 0)
+      {
+        var returnedJoin = _db.TreatFlavor
+          .Any(join => join.FlavorId == FlavorId && join.TreatId == treat.TreatId);
+          if(!returnedJoin)
+          {
+            _db.TreatFlavor.Add(new TreatFlavor() { TreatId = treat.TreatId, FlavorId = FlavorId });
+          }
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = treat.TreatId});
+    }
+
+    
+
 
     
   }
