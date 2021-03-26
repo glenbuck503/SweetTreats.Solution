@@ -35,7 +35,7 @@ namespace SweetTreats.Controllers
     {
       return View();
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> Create(Treat treat)
     {
@@ -45,6 +45,14 @@ namespace SweetTreats.Controllers
       _db.Treats.Add(treat);
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
+    public ActionResult Details(int id)
+    {
+      var thisTreat = _db.Treats.FirstOrDefault(treat => treat.TreatId == id);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.IsCurrentUser = userId != null? userId == thisTreat.User.Id : false;
+      return View(thisTreat);
     }
 
 
