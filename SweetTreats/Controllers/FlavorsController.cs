@@ -75,6 +75,36 @@ namespace Patisserie.Controllers
       _db.SaveChanges();
       return RedirectToAction("Details", new { id = flavor.FlavorId});
     }
+
+    [Authorize]
+    public async Task<ActionResult> AddTreat(int id)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var thisFlavor = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).FirstOrDefault(flavors => flavors.FlavorId == id);
+      if(thisFlavor == null)
+      {
+        return RedirectToAction("Details", new { id = id});
+      }
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Type");
+      return View(thisFlavor);
+    }
+
+    [HttpPost]
+    public ActionResult AddTreat(Flavor flavor, int TreatId)
+    {
+      if(TreatId != 0)
+      {
+        var returnedJoin = _db.TreatFlavor
+          .Any(join => join.FlavorId == flavor.FlavorId && join.TreatId == TreatId);
+          if(!returnedJoin)
+          {
+            _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+          }
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
     
