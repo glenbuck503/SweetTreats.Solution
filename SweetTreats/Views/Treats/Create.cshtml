@@ -1,0 +1,15 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreats.Models.Flavor
+
+<h2>Create new Flavor</h2>
+  @using(Html.BeginForm())
+  {
+    <div class="form-group">
+      @Html.LabelFor(model => model.Description)
+      @Html.TextBoxFor(model => model.Description)
+    </div>
+  <input type="submit" value="Add Flavor">
+  }
