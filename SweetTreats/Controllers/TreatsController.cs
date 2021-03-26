@@ -29,6 +29,25 @@ namespace SweetTreats.Controllers
       var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(userTreats);
     }
+
+    [Authorize]
+     public ActionResult Create()
+    {
+      return View();
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult> Create(Treat treat)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      treat.User = currentUser;
+      _db.Treats.Add(treat);
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
+
     
   }
 }
