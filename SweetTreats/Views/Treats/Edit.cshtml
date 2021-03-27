@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreats.Models.Treat
+
+<h2>Edit Treat Info:</h2>
+  @using(Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.TreatId)
+
+    <div class="form-group">
+      @Html.LabelFor(model => model.Name)
+      @Html.TextBoxFor(model => model.Name)
+    </div>
+  <input type="submit" value="Update">
+  }
+<br/>
+<h3>@Html.ActionLink($"Return to {Model.Name}'s details page", "Details", new { id = Model.TreatId})</h3>
