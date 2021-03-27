@@ -2,12 +2,41 @@
 @{
   Layout = "_Layout";
 }
-
+@using SweetTreats.Models
 <h1>Welcome to the to the Sweet Treats store!</h1>
 
 <h2>Please sign in or Create a new Account to customize your own treats!</h2>
 <p>@Html.ActionLink("Create a New Sweet Treats account", "Register", "Account")
-<p>@Html.ActionLink("Create a New Sweet Treats account", "Login", "Account")
+<p>@Html.ActionLink("Login to Sweet Treats account", "Login", "Account")
+
+   @if (ViewBag.Treats.Count == 0)
+    {
+      <h4>None listed.</h4>
+      <br/>
+       @if(User.Identity.IsAuthenticated)
+       {
+        <h4>@Html.ActionLink("add Treat", "Create", "Treats")</h4>
+         @using(Html.BeginForm("LogOut", "Account"))
+  {
+    <input type="submit" value="Log out">
+  }
+       }
+    }
+    else
+    {
+      <h3>@Html.ActionLink("Treats:", "Index", "Treats")</h3>
+      <br/>
+      @foreach(Treat treat in @ViewBag.Treats)
+      {
+        <h4>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId})</h4>
+      }
+      <br/>
+      @if(User.Identity.IsAuthenticated)
+      {
+        <h4>@Html.ActionLink("add Treat", "Create", "Treats")</h4>
+      }
+
+    }
 
 
 
