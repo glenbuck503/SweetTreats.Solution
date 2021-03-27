@@ -86,7 +86,7 @@ namespace SweetTreats.Controllers
       {
         return RedirectToAction("Details", new { id = id});
       }
-      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Description");
       return View(thisTreat);
     }
 
