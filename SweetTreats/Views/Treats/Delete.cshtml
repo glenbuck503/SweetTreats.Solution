@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTreats.Models.Treat
+
+<h3>Are you sure you want to delete @Model.Name from your treats?</h3>
+<br/>
+@using(Html.BeginForm())
+{
+  <input type="submit" value="Delete">
+}
+<br/>
+<h3>@Html.ActionLink($"Return to {Model.Name}'s details page", "Details", new { id = Model.TreatId})</h3>
