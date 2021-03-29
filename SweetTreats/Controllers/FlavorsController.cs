@@ -86,7 +86,7 @@ namespace Patisserie.Controllers
       {
         return RedirectToAction("Details", new { id = id});
       }
-      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Type");
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Description");
       return View(thisFlavor);
     }
 

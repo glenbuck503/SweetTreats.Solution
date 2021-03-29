@@ -38,5 +38,29 @@
 
     }
 
+    @if (ViewBag.Flavors.Count == 0)
+      {
+        <h4>You have no flavors to add to your treats!</h4>
+        <br/>
+        @if(User.Identity.IsAuthenticated)
+        {
+          <h4>@Html.ActionLink("+ your first Flavor", "Create", "Flavors")</h4>
+        }
+      }
+      else
+      {
+        <h3>@Html.ActionLink("Flavors:", "Index", "Flavors")</h3>
+        <br/>
+        @foreach(Flavor flavor in @ViewBag.Flavors)
+        {
+          <h4>@Html.ActionLink($"{flavor.Description}", "Details", "Flavors", new { id = flavor.FlavorId})</h4>
+        }
+        <br/>
+        @if(User.Identity.IsAuthenticated)
+        {
+          <h4>@Html.ActionLink("+ Flavor", "Create", "Flavors")</h4>
+        }
+      }
+
 
 
