@@ -9,6 +9,11 @@
 <p>@Html.ActionLink("Create a New Sweet Treats account", "Register", "Account")
 <p>@Html.ActionLink("Login to Sweet Treats account", "Login", "Account")
 
+  @using(Html.BeginForm("LogOut", "Account")) 
+    {
+      <input type="submit" value="Log out">
+    }
+
    @if (ViewBag.Treats.Count == 0)
     {
       <h4>None listed.</h4>
@@ -44,7 +49,7 @@
         <br/>
         @if(User.Identity.IsAuthenticated)
         {
-          <h4>@Html.ActionLink("+ your first Flavor", "Create", "Flavors")</h4>
+          <h4>@Html.ActionLink("add your first Flavor", "Create", "Flavors")</h4>
         }
       }
       else
@@ -59,8 +64,12 @@
         @if(User.Identity.IsAuthenticated)
         {
           <h4>@Html.ActionLink("Add Flavor", "Create", "Flavors")</h4>
+  
+        
         }
       }
+
+ 
 
 
 
