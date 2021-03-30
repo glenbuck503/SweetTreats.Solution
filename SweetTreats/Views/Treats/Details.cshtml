@@ -13,7 +13,7 @@
     <br/>
     @if (User.Identity.IsAuthenticated && ViewBag.IsCurrentUser)
     {
-      <h3>@Html.ActionLink("first Flavor", "AddFlavor", new { id = Model.TreatId })</h3>
+      <h3>@Html.ActionLink("Add first Flavor", "AddFlavor", new { id = Model.TreatId })</h3>
     }
   }
   else
@@ -34,7 +34,7 @@
     <br/>
     @if (User.Identity.IsAuthenticated && ViewBag.IsCurrentUser)
     {
-      <h3>@Html.ActionLink("+ another Flavor", "AddFlavor", new { id = Model.TreatId })</h3>
+      <h3>@Html.ActionLink("Add another Flavor", "AddFlavor", new { id = Model.TreatId })</h3>
     }
   }
 
