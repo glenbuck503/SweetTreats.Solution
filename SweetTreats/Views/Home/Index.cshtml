@@ -9,10 +9,10 @@
 <p>@Html.ActionLink("Create a New Sweet Treats account", "Register", "Account")
 <p>@Html.ActionLink("Login to Sweet Treats account", "Login", "Account")
 
-  @using(Html.BeginForm("LogOut", "Account")) 
+  @* @using(Html.BeginForm("LogOut", "Account")) 
     {
       <input type="submit" value="Log out">
-    }
+    } *@
 
    @if (ViewBag.Treats.Count == 0)
     {
@@ -68,6 +68,7 @@
         
         }
       }
+
 
  
 

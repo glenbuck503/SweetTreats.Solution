@@ -14,7 +14,7 @@
       <br/>
       @if (User.Identity.IsAuthenticated && ViewBag.IsCurrentUser)
       {
-        <h3>@Html.ActionLink("add first Treat", "AddTreat", new { id = Model.FlavorId })</h3>
+        <h3>@Html.ActionLink("add first Treat", "AddTreat",  new { id = Model.FlavorId })</h3>
       }
     }
     else
@@ -35,7 +35,7 @@
       <br/>
       @if (User.Identity.IsAuthenticated && ViewBag.IsCurrentUser)
       {
-        <h3>@Html.ActionLink(" addanother Treat", "AddTreat", new { id = Model.FlavorId })</h3>
+        <h3>@Html.ActionLink(" add another Treat", "AddTreat", "Flavors", new { id = Model.FlavorId })</h3>
       }
     }
 
@@ -46,3 +46,4 @@
       }
 
       <h3>@Html.ActionLink("Home", "Index", "Home")</h3>
+      @* <h3>@Html.ActionLink($"Return to {Model.Description}'s deatials page", "Details", new { id = Model.FlavorId})</h3> *@
