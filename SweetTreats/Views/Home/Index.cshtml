@@ -27,8 +27,12 @@
     else
     {
       <h3>@Html.ActionLink("Treats for you", "Index", "Treats")</h3>
+      @using(Html.BeginForm("LogOut", "Account"))
+      {
+        <input type="submit" value="Log out">
+      }
       <br/>
-      <h2>Public treat list</h2>
+      <h3>Public treat list</h3>
       @foreach(Treat treat in @ViewBag.Treats)
       {
         <h4>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId})</h4>

@@ -6,8 +6,12 @@
 
 @if(User.Identity.IsAuthenticated)
 {
-  <h3>Welcome to the Sweet Treats shopp @User.Identity.Name! You are now signed in. You have access to create your own treats!</h3>
+  <h3>Welcome to the Sweet Treats shop @User.Identity.Name! You are now signed in. You have access to create your own treats!</h3>
   <br/>
+  @using(Html.BeginForm("LogOut", "Account"))
+  {
+    <input type="submit" value="Log out">
+  }
   
 }
 else

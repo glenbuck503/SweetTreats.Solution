@@ -7,6 +7,7 @@
 @model RegisterViewModel
 
 <h2>Register a new Sweet Treats user!</h2>
+<h3>You will have to login after you create your account.</h3>
 <hr/>
 
 @if(ViewBag.Error != null)
@@ -16,7 +17,7 @@
 
 
 <hr />
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     @Html.LabelFor(user => user.Email)
     @Html.TextBoxFor(user=> user.Email)
