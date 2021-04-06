@@ -35,6 +35,7 @@ namespace SweetTreats.Controllers
       if(model.Password != model.ConfirmPassword)
       {
         ViewBag.Error = "Confirm that your passwords match";
+        // return  RedirectToAction("Index");
         return View();
       }
       else
@@ -45,7 +46,7 @@ namespace SweetTreats.Controllers
           IdentityResult result = await _userManager.CreateAsync(user, model.Password);
           if(result.Succeeded)
           {
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
           }
           else
           {
